@@ -10,6 +10,7 @@ import DisplayJob from './routes/displayJob';
 import AllBooking from './routes/allBooking';
 import Posts from './routes/posts';
 import Camera from './routes/camera';
+import VideoPlayer from './routes/videoPlayer'
 import axios from "axios"
 const Stack = createStackNavigator();
 export default function App() {
@@ -59,6 +60,10 @@ export default function App() {
         <Stack.Screen
           name="Camera"
           component={Camera}
+        />
+        <Stack.Screen
+          name="VideoPlayer"
+          component={VideoPlayer}
         />
 
       </Stack.Navigator>

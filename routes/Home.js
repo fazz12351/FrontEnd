@@ -21,9 +21,9 @@ export default function HomePage() {
     function navigateToPosts() {
         navigation.navigate("Posts")
     }
-    // function navigateToCamera() {
-    //     navigation.navigate("Camera")
-    // }
+    function navigateTovideoPlayer() {
+        navigation.navigate("VideoPlayer")
+    }
 
     return (
         <View style={styles.container}>
@@ -39,7 +39,7 @@ export default function HomePage() {
                 <Taskbuttons title="Open Jobs" icon="search" page="Home" navigate={navigateToJobs} />
                 <Taskbuttons title="Bookings" page="Home" icon="briefcase" navigate={navigateToBookings} />
                 <Taskbuttons title="Posts" page="Home" icon="camera" navigate={navigateToPosts} />
-                {/* <Taskbuttons title="Camera" page="Home" icon="camera" navigate={navigateToCamera} /> */}
+                <Taskbuttons title="Camera" page="Home" icon="camera" navigate={navigateTovideoPlayer} />
 
                 {/* Add more service cards as needed */}
             </View>
