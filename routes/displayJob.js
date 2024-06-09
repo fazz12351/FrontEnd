@@ -6,23 +6,22 @@ import Taskbuttons from "../components/taskButtons";
 import Navigation from "../components/navigation";
 import Map from "../components/map";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import Clock from "../components/clock";
 import { useNavigation } from '@react-navigation/native';
 
 export default function DisplayJob(props) {
     const [showModal, setShowModal] = useState(false);
     const [successMessage, setSuccessMessage] = useState("");
-    const [isFullScreen, setIsFullScreen] = useState(false); // State to track full screen mode
+    const [isFullScreen, setIsFullScreen] = useState(false);
     const navigation = useNavigation();
 
     const navigateToBookings = () => {
         navigation.navigate("AllBookings", { forceRefresh: Math.random() });
-    }
+    };
 
     const callContact = () => {
         const phoneNumber = props.route.params.job.telephone;
         Linking.openURL(`tel:0${phoneNumber}`);
-    }
+    };
 
     const acceptJob = async () => {
         try {
@@ -78,6 +77,7 @@ export default function DisplayJob(props) {
             console.error("Error:", error);
         }
     };
+
     const isListJobsPage = props.route.params.page === 'listJobs';
     const isViewJobsPage = props.route.params.page === "viewJobs";
 
@@ -147,7 +147,7 @@ export default function DisplayJob(props) {
                 </Modal>
 
                 {/* Pass isFullScreen state to the Map component */}
-                <TouchableOpacity style={isFullScreen ? styles.fullScreenContainer : styles.container} onPress={toggleFullScreen}>
+                <TouchableOpacity style={isFullScreen ? styles.fullScreenContainer : styles.mapContainer} onPress={toggleFullScreen}>
                     <Map address={props.route.params.job.address} />
                 </TouchableOpacity>
             </ScrollView>
@@ -206,47 +206,49 @@ const styles = StyleSheet.create({
     },
     modalContent: {
         backgroundColor: "#fff",
-        padding:
-        20,
+        padding: 20,
         borderRadius: 8,
-      },
-      currentJobContent: {
+    },
+    currentJobContent: {
         fontSize: 16,
         marginTop: 5,
-      },
-      label: {
+    },
+    label: {
         fontWeight: "bold",
         marginTop: 10,
-      },
-      contactText: {
+    },
+    contactText: {
         color: "blue",
         marginTop: 5,
-      },
-      successText: {
+    },
+    successText: {
         fontSize: 18,
         fontWeight: "bold",
         marginBottom: 10,
         textAlign: "center",
-      },
-      fullScreenContainer: {
+    },
+    fullScreenContainer: {
         flex: 1,
         backgroundColor: "black",
-      },
-      // Table styles
-      tableRow: {
+    },
+    mapContainer: {
+        height: 300, // Adjust the height as needed
+        backgroundColor: "lightgrey",
+        marginVertical: 20,
+    },
+    // Table styles
+    tableRow: {
         flexDirection: 'row',
         borderBottomWidth: 1,
         borderColor: '#ccc',
         paddingVertical: 10,
-      },
-      tableHeader: {
+    },
+    tableHeader: {
         flex: 1,
         fontWeight: 'bold',
-      },
-      tableText: {
-        paddingLeft:10,
+    },
+    tableText: {
+        paddingLeft: 10,
         flex: 3,
-      },
-      });
-      
-      
+    },
+});

@@ -39,7 +39,7 @@ export default function HomePage() {
                 <Taskbuttons title="Open Jobs" icon="search" page="Home" navigate={navigateToJobs} />
                 <Taskbuttons title="Bookings" page="Home" icon="briefcase" navigate={navigateToBookings} />
                 <Taskbuttons title="Posts" page="Home" icon="camera" navigate={navigateToPosts} />
-                <Taskbuttons title="Camera" page="Home" icon="camera" navigate={navigateTovideoPlayer} />
+                <Taskbuttons title="Community" page="Home" icon="users" navigate={navigateTovideoPlayer} />
 
                 {/* Add more service cards as needed */}
             </View>

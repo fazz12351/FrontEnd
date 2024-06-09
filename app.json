@@ -1,13 +1,13 @@
 {
   "expo": {
-    "name": "FrontEnd",
-    "slug": "FrontEnd",
+    "name": "Tradesmans World",
+    "slug": "Tradesmans World",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/TradesmansWorld.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/TradesmansWorld.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -19,12 +19,18 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/TradesmansWorld.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.faeem123.FrontEnd"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "578e0649-7724-4252-af0c-0189e66333af"
+      }
     }
   }
 }
