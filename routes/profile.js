@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, Button, Image } from "react-native";
+import { View, Text, StyleSheet, Button, Image, ScrollView } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 
@@ -9,7 +9,7 @@ import Navigation from "../components/navigation";
 
 export default function Profile() {
     const [profileData, setProfileData] = useState(null);
-    const navigation = useNavigation(); // Use useNavigation hook directly
+    const navigation = useNavigation();
 
     useEffect(() => {
         getProfile();
@@ -17,21 +17,19 @@ export default function Profile() {
 
     const getProfile = async () => {
         try {
-            // Get the authentication token from AsyncStorage or wherever you store it
             const token = await AsyncStorage.getItem("AccessToken");
 
             const response = await fetch("https://remoteclub-8tjf.onrender.com/TradesmanProfile/profile", {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}` // Include the token in the request headers
+                    "Authorization": `Bearer ${token}`
                 }
             });
             const data = await response.json();
 
             if (response.ok) {
-                setProfileData(data); // Set profile data in state
-                console.log(data)
+                setProfileData(data);
             } else {
                 throw new Error("Failed to fetch profile data");
             }
@@ -42,26 +40,22 @@ export default function Profile() {
 
     async function logOut() {
         try {
-            await AsyncStorage.clear()
-            navigation.navigate('LoginPage'); // Use navigation directly
+            await AsyncStorage.clear();
+            navigation.navigate('LoginPage');
+        } catch (err) {
+            throw new Error(err);
         }
-        catch (err) {
-            throw new Error(err)
-        }
-
     }
 
     return (
         <View style={styles.container}>
             <Header />
-            <Hero text={profileData ? `${profileData.responce.firstname} ${profileData.responce.lastname}` : "Loading..."} style={{ backgroundColor: "white" }}></Hero>
+            <Hero text={profileData ? `${profileData.responce.firstname} ${profileData.responce.lastname}` : "Loading..."} style={{ backgroundColor: "white" }} />
 
-            {/* Main Content */}
-            <View style={styles.mainContent}>
-                {/* Render profile information here */}
+            <ScrollView contentContainerStyle={styles.scrollContent}>
                 <View style={styles.profileContainer}>
                     <Image
-                        source={require('../assets/FaeemAhmed.jpeg')} // Replace with the path to your image
+                        source={require('../assets/FaeemAhmed.jpeg')}
                         style={styles.profilePicture}
                     />
 
@@ -82,14 +76,12 @@ export default function Profile() {
                         </View>
                     )}
 
-                    {/* Logout button */}
                     <View style={styles.logOutButton}>
                         <Button onPress={logOut} title="Log Out" color="black" />
                     </View>
                 </View>
-            </View>
+            </ScrollView>
 
-            {/* Navigation Bar */}
             <Navigation />
         </View>
     );
@@ -98,39 +90,34 @@ export default function Profile() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        width: "100%",
-        position: "relative",
+        backgroundColor: "#f8f9fa",
+    },
+    scrollContent: {
+        flexGrow: 1,
+        padding: 20,
     },
     profileContainer: {
-        paddingTop: 20,
+        paddingTop: 40,
         borderRadius: 10,
-        backgroundColor: "orange",
+        backgroundColor: "#ffffff",
         width: "100%",
         justifyContent: "center",
         alignItems: "center",
-        flex: 1,
-        borderColor: "grey", // Add border color
-        borderWidth: 1, // Add border width
-    },
-    mainContent: {
-        backgroundColor: "white",
-        flex: 1,
-        width: "100%",
+        elevation: 2, // Add shadow for Android
+        shadowColor: "#000", // Add shadow for iOS
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
         padding: 20,
-        zIndex: 0,
     },
     profilePicture: {
-        position: "absolute",
-        top: 40,
-        width: 100,
-        height: 100,
-        borderRadius: 50,
+        width: 120,
+        height: 120,
+        borderRadius: 60,
+        marginBottom: 20,
     },
     userInformation: {
-        paddingTop: 20,
-        paddingBottom: 20,
-        width: "90%",
-        alignItems: 'center',
+        width: "100%",
     },
     informationContainer: {
         flexDirection: 'row',
@@ -142,22 +129,20 @@ const styles = StyleSheet.create({
         textAlign: 'right',
         marginRight: 10,
         fontWeight: 'bold',
+        color: "#6c757d",
     },
     information: {
         flex: 1,
         borderRadius: 10,
-        borderColor: "grey",
+        borderColor: "#6c757d",
         borderWidth: 1,
-        backgroundColor: "orange",
+        backgroundColor: "#f8f9fa",
         padding: 10,
+        color: "#495057",
     },
     logOutButton: {
-        position: 'absolute',
-        bottom: 20,
-        width: '50%',
+        marginTop: 20,
+        width: '100%',
         alignItems: 'center',
-        borderWidth: 1, // Add border
-        borderColor: "grey", // Border color
-        borderRadius: 10
-    }
+    },
 });
